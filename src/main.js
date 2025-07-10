@@ -249,6 +249,7 @@ const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
 
 /** ----------------- Texture --------------------- */
+const roomMaterials = {};
 // Loaders
 const textureLoader = new THREE.TextureLoader();
 
@@ -266,7 +267,7 @@ const textureDay = textureLoader.load("/textures/BakeWithBg.png", (texture) => {
 });
 
 const textureNight = textureLoader.load(
-  "/textures/BakeTextureNight.webp",
+  "/textures/BakeWithBgNight.png",
   (texture) => {
     texture.flipY = false;
     texture.colorSpace = THREE.SRGBColorSpace;
@@ -303,8 +304,6 @@ window.addEventListener("mousemove", (e) => {
 function handleRaycasterInteraction() {
   if (!isModalOpen) {
     if (currentsRaycasterObjects.length) {
-      console.log(currentsRaycasterObjects[0].object.name);
-
       if (currentsRaycasterObjects[0].object.name.includes("Logo")) {
         const newWindow = window.open();
         newWindow.location.href =
@@ -415,6 +414,82 @@ muteToggleButton.addEventListener(
 const themeToggleButton = document.querySelector(".theme-toggle-button");
 const sunSvg = document.querySelector(".sun-svg");
 const moonSvg = document.querySelector(".moon-svg");
+
+let isNightMode = false;
+
+const handleThemeToggle = (e) => {
+  e.preventDefault();
+
+  const isDark = document.body.classList.contains("dark-theme");
+  document.body.classList.remove(isDark ? "dark-theme" : "light-theme");
+  document.body.classList.add(isDark ? "light-theme" : "dark-theme");
+
+  isNightMode = !isNightMode;
+  buttonSounds.click.play();
+
+  gsap.to(themeToggleButton, {
+    rotate: 45,
+    scale: 5,
+    duration: 0.5,
+    ease: "back.out(2)",
+    onStart: () => {
+      if (isNightMode) {
+        sunSvg.style.display = "none";
+        moonSvg.style.display = "block";
+      } else {
+        moonSvg.style.display = "none";
+        sunSvg.style.display = "block";
+      }
+
+      gsap.to(themeToggleButton, {
+        rotate: 0,
+        scale: 1,
+        duration: 0.5,
+        ease: "back.out(2)",
+        onComplete: () => {
+          gsap.set(themeToggleButton, {
+            clearProps: "all",
+          });
+        },
+      });
+    },
+  });
+
+  // 🎨 Switch la texture ici
+  Object.values(roomMaterials).forEach((material) => {
+    gsap.to(material, {
+      opacity: 0,
+      duration: 0.5,
+      onComplete: () => {
+        material.map = isNightMode ? textureNight : textureDay;
+        material.needsUpdate = true;
+        gsap.to(material, {
+          opacity: 1,
+          duration: 0.5,
+        });
+      },
+    });
+  });
+};
+
+// Click event listener
+themeToggleButton.addEventListener(
+  "click",
+  (e) => {
+    if (touchHappened) return;
+    handleThemeToggle(e);
+  },
+  { passive: false }
+);
+
+themeToggleButton.addEventListener(
+  "touchend",
+  (e) => {
+    touchHappened = true;
+    handleThemeToggle(e);
+  },
+  { passive: false }
+);
 /** ------------------------------- Load --------------------------*/
 gltfLoader.load("/models/PortfolioAnimate.glb", (glb) => {
   glb.scene.traverse((child) => {
@@ -430,8 +505,13 @@ gltfLoader.load("/models/PortfolioAnimate.glb", (glb) => {
       } else {
         const material = new THREE.MeshBasicMaterial({
           map: textureDay,
+          transparent: true,
+          opacity: 1,
         });
         child.material = material;
+
+        // Stocke la référence pour plus tard
+        roomMaterials[child.name] = material;
       }
     }
   });
@@ -463,4 +543,5 @@ const render = () => {
 
   window.requestAnimationFrame(render);
 };
+
 render();
