@@ -1,0 +1,27 @@
+
+$base-dark-blue: #3a678c;
+$base-blue: #64b9e5;
+$base-blue-200: #a3dff1;
+$base-light-blue: #dceaf4;
+$base-very-light-blue: #e3f7fc;
+$base-wood-beige: #f2e3d2;
+
+$base-dark-blue-2: #dceaf4;
+$base-blue-2: #3a678c;
+$base-blue-200-2: #5c7ea5;
+$base-light-blue-2: #2b4a60;
+$base-very-light-blue-2: #1c2f40;
+$base-wood-beige-2: #3a2f28;
+
+$base-black: #090909;
+$base-white: #fdfdfd;
+
+$base-font: "Bangers", cursive;
+$base-font-2: "Impact", sans-serif;
+
+// Mixins
+@mixin centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
