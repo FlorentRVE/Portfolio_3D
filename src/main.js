@@ -86,10 +86,7 @@ manager.onLoad = function () {
 /**  -------------------------- Audio setup -------------------------- */
 
 // Background Music
-let isMusicFaded = false;
-const MUSIC_FADE_TIME = 500;
 const BACKGROUND_MUSIC_VOLUME = 1;
-const FADED_VOLUME = 0;
 
 const backgroundMusic = new Howl({
   src: ["/audio/music/bg.ogg"],
@@ -274,6 +271,36 @@ const textureNight = textureLoader.load(
   }
 );
 
+const createRoomShaderMaterial = () => {
+  return new THREE.ShaderMaterial({
+    uniforms: {
+      uTextureDay: { value: textureDay },
+      uTextureNight: { value: textureNight },
+      uMixRatio: { value: 0 }, // Start en day
+    },
+    vertexShader: `
+      varying vec2 vUv;
+      void main() {
+        vUv = uv;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      }
+    `,
+    fragmentShader: `
+      uniform sampler2D uTextureDay;
+      uniform sampler2D uTextureNight;
+      uniform float uMixRatio;
+      varying vec2 vUv;
+      void main() {
+        vec4 colorDay = texture2D(uTextureDay, vUv);
+        vec4 colorNight = texture2D(uTextureNight, vUv);
+        gl_FragColor = mix(colorDay, colorNight, uMixRatio);
+      }
+    `,
+  });
+};
+
+
+
 // Video Texture
 const videoElement = document.createElement("video");
 videoElement.src = "/textures/videos/video_2.mp4";
@@ -457,19 +484,13 @@ const handleThemeToggle = (e) => {
 
   // 🎨 Switch la texture ici
   Object.values(roomMaterials).forEach((material) => {
-    gsap.to(material, {
-      opacity: 0,
-      duration: 0.5,
-      onComplete: () => {
-        material.map = isNightMode ? textureNight : textureDay;
-        material.needsUpdate = true;
-        gsap.to(material, {
-          opacity: 1,
-          duration: 0.5,
-        });
-      },
+    gsap.to(material.uniforms.uMixRatio, {
+      value: isNightMode ? 1 : 0,
+      duration: 1.5,
+      ease: "power2.inOut",
     });
   });
+  
 };
 
 // Click event listener
@@ -503,15 +524,19 @@ gltfLoader.load("/models/PortfolioAnimate.glb", (glb) => {
       } else if (child.name.includes("Poster")) {
         child.material = new THREE.MeshBasicMaterial({ map: imageTexture });
       } else {
-        const material = new THREE.MeshBasicMaterial({
-          map: textureDay,
-          transparent: true,
-          opacity: 1,
-        });
-        child.material = material;
+        // const material = new THREE.MeshBasicMaterial({
+        //   map: textureDay,
+        //   transparent: true,
+        //   opacity: 1,
+        // });
+        // child.material = material;
 
-        // Stocke la référence pour plus tard
-        roomMaterials[child.name] = material;
+        // // Stocke la référence pour plus tard
+        // roomMaterials[child.name] = material;
+
+        const shaderMat = createRoomShaderMaterial();
+        child.material = shaderMat;
+        roomMaterials[child.name] = shaderMat;
       }
     }
   });
