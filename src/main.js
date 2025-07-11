@@ -91,7 +91,7 @@ const BACKGROUND_MUSIC_VOLUME = 1;
 const backgroundMusic = new Howl({
   src: ["/audio/music/bg.ogg"],
   loop: true,
-  volume: 1,
+  volume: 0.5,
 });
 
 // Button
@@ -130,7 +130,7 @@ const camera = new THREE.PerspectiveCamera(
 const controls = new OrbitControls(camera, renderer.domElement);
 
 controls.minDistance = 5;
-controls.maxDistance = 15;
+controls.maxDistance = 30;
 controls.minPolarAngle = 0;
 controls.maxPolarAngle = Math.PI / 2;
 
@@ -139,6 +139,7 @@ controls.maxAzimuthAngle = 0;
 
 controls.enableDamping = true;
 controls.dampingFactor = 0.05;
+controls.mouseButtons.RIGHT = THREE.MOUSE.NONE;
 
 controls.update();
 
@@ -258,13 +259,16 @@ const gltfLoader = new GLTFLoader(manager);
 gltfLoader.setDRACOLoader(dracoLoader);
 
 // General Texture
-const textureDay = textureLoader.load("/textures/BakeWithBg.png", (texture) => {
-  texture.flipY = false;
-  texture.colorSpace = THREE.SRGBColorSpace;
-});
+const textureDay = textureLoader.load(
+  "/textures/Day.png",
+  (texture) => {
+    texture.flipY = false;
+    texture.colorSpace = THREE.SRGBColorSpace;
+  }
+);
 
 const textureNight = textureLoader.load(
-  "/textures/BakeWithBgNight.png",
+  "/textures/Night.png",
   (texture) => {
     texture.flipY = false;
     texture.colorSpace = THREE.SRGBColorSpace;
@@ -299,8 +303,6 @@ const createRoomShaderMaterial = () => {
   });
 };
 
-
-
 // Video Texture
 const videoElement = document.createElement("video");
 videoElement.src = "/textures/videos/video_2.mp4";
@@ -320,7 +322,23 @@ const imageTexture = new THREE.TextureLoader().load(
 );
 imageTexture.wrapS = THREE.RepeatWrapping;
 imageTexture.wrapT = THREE.RepeatWrapping;
-imageTexture.repeat.set(50, 50);
+imageTexture.repeat.set(-20, 20);
+imageTexture.center.set(0.3, 0.8);
+
+const imageTextureDeux = new THREE.TextureLoader().load(
+  "textures/image/random.png"
+);
+imageTextureDeux.wrapS = THREE.RepeatWrapping;
+imageTextureDeux.wrapT = THREE.RepeatWrapping;
+imageTextureDeux.repeat.set(50, 50);
+
+const imageTextureTrois = new THREE.TextureLoader().load(
+  "textures/image/logo.png"
+);
+imageTextureTrois.wrapS = THREE.RepeatWrapping;
+imageTextureTrois.wrapT = THREE.RepeatWrapping;
+imageTextureTrois.repeat.set(-40, 35.6);
+imageTextureTrois.center.set(0.5, 0.1);
 
 /** ------------------------------- Mouse & Click --------------------------*/
 window.addEventListener("mousemove", (e) => {
@@ -441,6 +459,8 @@ muteToggleButton.addEventListener(
 const themeToggleButton = document.querySelector(".theme-toggle-button");
 const sunSvg = document.querySelector(".sun-svg");
 const moonSvg = document.querySelector(".moon-svg");
+const skyImageDay = "/textures/Sky_day.png";
+const skyImageNight = "/textures/Sky_night.png";
 
 let isNightMode = false;
 
@@ -482,7 +502,42 @@ const handleThemeToggle = (e) => {
     },
   });
 
-  // 🎨 Switch la texture ici
+  //Switch la texture sea ici
+  if (isNightMode) {
+    gsap.to(uniforms.uSeaColor.value, {
+      r: 0.0,
+      g: 0.5,
+      b: 1.0,
+      duration: 1.5,
+      ease: "power2.inOut",
+    });
+  } else {
+    gsap.to(uniforms.uSeaColor.value, {
+      r: 0.0,
+      g: 0.8,
+      b: 1.0,
+      duration: 1.5,
+      ease: "power2.inOut",
+    });
+  }
+
+  // Switch la texture sky ici
+  if (isNightMode) {
+    // Passer en nuit
+    textureLoaderSky.load(skyImageNight, (newTexture) => {
+      skyMaterial.map = newTexture;
+      skyMaterial.needsUpdate = true;
+    });
+  } else {
+    // Revenir au jour
+    textureLoaderSky.load(skyImageDay, (newTexture) => {
+      skyMaterial.map = newTexture;
+      skyMaterial.needsUpdate = true;
+    });
+  }
+
+
+  //Switch la texture ici
   Object.values(roomMaterials).forEach((material) => {
     gsap.to(material.uniforms.uMixRatio, {
       value: isNightMode ? 1 : 0,
@@ -490,7 +545,6 @@ const handleThemeToggle = (e) => {
       ease: "power2.inOut",
     });
   });
-  
 };
 
 // Click event listener
@@ -512,7 +566,7 @@ themeToggleButton.addEventListener(
   { passive: false }
 );
 /** ------------------------------- Load --------------------------*/
-gltfLoader.load("/models/PortfolioAnimate.glb", (glb) => {
+gltfLoader.load("/models/House.glb", (glb) => {
   glb.scene.traverse((child) => {
     if (child.isMesh) {
       if (child.name.includes("raycaster")) {
@@ -523,17 +577,15 @@ gltfLoader.load("/models/PortfolioAnimate.glb", (glb) => {
         child.material = new THREE.MeshBasicMaterial({ map: videoTexture });
       } else if (child.name.includes("Poster")) {
         child.material = new THREE.MeshBasicMaterial({ map: imageTexture });
+      } else if (child.name.includes("Photo_1")) {
+        child.material = new THREE.MeshBasicMaterial({ map: imageTextureDeux });
+      } else if (child.name.includes("Photo_2")) {
+        child.material = new THREE.MeshBasicMaterial({ map: imageTextureDeux });
+      } else if (child.name.includes("Tableau")) {
+        child.material = new THREE.MeshBasicMaterial({
+          map: imageTextureTrois,
+        });
       } else {
-        // const material = new THREE.MeshBasicMaterial({
-        //   map: textureDay,
-        //   transparent: true,
-        //   opacity: 1,
-        // });
-        // child.material = material;
-
-        // // Stocke la référence pour plus tard
-        // roomMaterials[child.name] = material;
-
         const shaderMat = createRoomShaderMaterial();
         child.material = shaderMat;
         roomMaterials[child.name] = shaderMat;
@@ -544,7 +596,100 @@ gltfLoader.load("/models/PortfolioAnimate.glb", (glb) => {
   scene.add(glb.scene);
 });
 
+/* -------------------- Sea -------------------------*/
+const clock = new THREE.Clock();
+
+// Geometry
+const geometry = new THREE.PlaneGeometry(100, 100, 100, 100); // Augmenter les segments
+geometry.rotateX(-Math.PI / 2);
+
+// Courber les vertices
+const curveAmount = -4; // Plus grand = plus courbé
+
+for (let i = 0; i < geometry.attributes.position.count; i++) {
+  const x = geometry.attributes.position.getX(i);
+  const z = geometry.attributes.position.getZ(i);
+
+  // Plus la distance au centre est grande, plus on remonte
+  const distance = Math.sqrt(x * x + z * z);
+  const y = Math.pow(distance / 50, 2) * curveAmount; // Ajuster selon ton effet
+
+  geometry.attributes.position.setY(i, y);
+}
+
+// Mettre à jour la géométrie
+geometry.computeVertexNormals();
+geometry.attributes.position.needsUpdate = true;
+
+
+// Uniforms
+const uniforms = {
+  uTime: { value: 0 },
+  uSeaColor: { value: new THREE.Color(0.0, 0.8, 1.0) },
+};
+
+// Vertex shader
+const vertexShader = `
+varying vec2 vUv;
+
+void main() {
+  vUv = uv;
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+}
+`;
+
+// Fragment shader
+const fragmentShader = `
+uniform float uTime;
+varying vec2 vUv;
+uniform vec3 uSeaColor;
+
+void main() {
+  // Couleur de base (bleu cartoon)
+  vec3 baseColor = uSeaColor;
+
+  // Forme de reflet plus courbe et fluide
+  float wavePattern = sin(vUv.x * 18.0 + uTime * 1.5) 
+                    + cos(vUv.y * 10.0 + uTime * 1.0);
+
+  // Normaliser entre 0 et 1
+  float highlight = smoothstep(0.8, 1.0, wavePattern * 0.5 + 0.5);
+
+  // Mélange
+  vec3 finalColor = mix(baseColor, vec3(1.0), highlight * 0.2); // Intensité légère
+
+  gl_FragColor = vec4(finalColor, 1.0);
+}
+
+`;
+
+const material = new THREE.ShaderMaterial({
+  vertexShader,
+  fragmentShader,
+  uniforms,
+  side: THREE.DoubleSide,
+});
+
+const water = new THREE.Mesh(geometry, material);
+water.position.y = -0.9;
+scene.add(water);
+
+/* --------------------- Sky -----------------------------*/
+
+const skyGeometry = new THREE.SphereGeometry(100, 32, 32);
+
+const textureLoaderSky = new THREE.TextureLoader();
+const skyTexture = textureLoaderSky.load(skyImageDay);
+const skyMaterial = new THREE.MeshBasicMaterial({
+  map: skyTexture,
+  side: THREE.BackSide,
+});
+
+const skyDome = new THREE.Mesh(skyGeometry, skyMaterial);
+scene.add(skyDome);
+
 /** ------------------------------- Render --------------------------*/
+
 const render = () => {
   controls.update();
 
@@ -567,6 +712,7 @@ const render = () => {
   renderer.render(scene, camera);
 
   window.requestAnimationFrame(render);
+  uniforms.uTime.value = clock.getElapsedTime();
 };
 
 render();
