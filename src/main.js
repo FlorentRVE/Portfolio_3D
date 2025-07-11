@@ -305,7 +305,7 @@ const createRoomShaderMaterial = () => {
 
 // Video Texture
 const videoElement = document.createElement("video");
-videoElement.src = "/textures/videos/video_2.mp4";
+videoElement.src = "/textures/videos/motion.mp4";
 videoElement.loop = true;
 videoElement.muted = true;
 videoElement.autoplay = true;
@@ -313,7 +313,8 @@ videoElement.play();
 const videoTexture = new THREE.VideoTexture(videoElement);
 videoTexture.wrapS = THREE.RepeatWrapping;
 videoTexture.wrapT = THREE.RepeatWrapping;
-videoTexture.repeat.set(30, 30);
+videoTexture.repeat.set(-30, 30);
+videoTexture.center.set(0.8, 0);
 videoTexture.rotation = Math.PI / 2;
 
 // Image Texture
@@ -566,7 +567,7 @@ themeToggleButton.addEventListener(
   { passive: false }
 );
 /** ------------------------------- Load --------------------------*/
-gltfLoader.load("/models/House.glb", (glb) => {
+gltfLoader.load("/models/Portfolio.glb", (glb) => {
   glb.scene.traverse((child) => {
     if (child.isMesh) {
       if (child.name.includes("raycaster")) {
