@@ -239,9 +239,6 @@ const Links = {
   Logo_insta_raycaster: "https://www.instagram.com/florent_rve/",
   Logo_linkedin_raycaster: "https://www.linkedin.com/in/florent-rve/",
   Logo_Github_raycaster: "https://github.com/Florent-RVE/",
-  Panneau_apropos_raycaster: "127.0.0.1:5500/apropos",
-  Panneau_contact_raycaster: "127.0.0.1:5500/contact",
-  Panneau_portfolio_raycaster: "127.0.0.1:5500/portfolio",
 };
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
@@ -260,7 +257,7 @@ gltfLoader.setDRACOLoader(dracoLoader);
 
 // General Texture
 const textureDay = textureLoader.load(
-  "/textures/Day.png",
+  "/textures/Day.webp",
   (texture) => {
     texture.flipY = false;
     texture.colorSpace = THREE.SRGBColorSpace;
@@ -268,7 +265,7 @@ const textureDay = textureLoader.load(
 );
 
 const textureNight = textureLoader.load(
-  "/textures/Night.png",
+  "/textures/Night.webp",
   (texture) => {
     texture.flipY = false;
     texture.colorSpace = THREE.SRGBColorSpace;
@@ -318,28 +315,28 @@ videoTexture.center.set(0.8, 0);
 videoTexture.rotation = Math.PI / 2;
 
 // Image Texture
-const imageTexture = new THREE.TextureLoader().load(
-  "textures/image/poster.png"
+const poster = new THREE.TextureLoader().load(
+  "textures/image/poster.webp"
 );
-imageTexture.wrapS = THREE.RepeatWrapping;
-imageTexture.wrapT = THREE.RepeatWrapping;
-imageTexture.repeat.set(-20, 20);
-imageTexture.center.set(0.3, 0.8);
+poster.wrapS = THREE.RepeatWrapping;
+poster.wrapT = THREE.RepeatWrapping;
+poster.repeat.set(-20, 20);
+poster.center.set(0.3, 0.8);
 
-const imageTextureDeux = new THREE.TextureLoader().load(
-  "textures/image/random.png"
+const random = new THREE.TextureLoader().load(
+  "textures/image/random.webp"
 );
-imageTextureDeux.wrapS = THREE.RepeatWrapping;
-imageTextureDeux.wrapT = THREE.RepeatWrapping;
-imageTextureDeux.repeat.set(50, 50);
+random.wrapS = THREE.RepeatWrapping;
+random.wrapT = THREE.RepeatWrapping;
+random.repeat.set(50, 50);
 
-const imageTextureTrois = new THREE.TextureLoader().load(
-  "textures/image/logo.png"
+const logo = new THREE.TextureLoader().load(
+  "textures/image/logo.webp"
 );
-imageTextureTrois.wrapS = THREE.RepeatWrapping;
-imageTextureTrois.wrapT = THREE.RepeatWrapping;
-imageTextureTrois.repeat.set(-40, 35.6);
-imageTextureTrois.center.set(0.5, 0.1);
+logo.wrapS = THREE.RepeatWrapping;
+logo.wrapT = THREE.RepeatWrapping;
+logo.repeat.set(-40, 35.6);
+logo.center.set(0.5, 0.1);
 
 /** ------------------------------- Mouse & Click --------------------------*/
 window.addEventListener("mousemove", (e) => {
@@ -460,8 +457,8 @@ muteToggleButton.addEventListener(
 const themeToggleButton = document.querySelector(".theme-toggle-button");
 const sunSvg = document.querySelector(".sun-svg");
 const moonSvg = document.querySelector(".moon-svg");
-const skyImageDay = "/textures/Sky_day.png";
-const skyImageNight = "/textures/Sky_night.png";
+const skyImageDay = "/textures/Sky_day.webp";
+const skyImageNight = "/textures/Sky_night.webp";
 
 let isNightMode = false;
 
@@ -577,14 +574,14 @@ gltfLoader.load("/models/Portfolio.glb", (glb) => {
       if (child.name.includes("Ecran_pc_1")) {
         child.material = new THREE.MeshBasicMaterial({ map: videoTexture });
       } else if (child.name.includes("Poster")) {
-        child.material = new THREE.MeshBasicMaterial({ map: imageTexture });
+        child.material = new THREE.MeshBasicMaterial({ map: poster });
       } else if (child.name.includes("Photo_1")) {
-        child.material = new THREE.MeshBasicMaterial({ map: imageTextureDeux });
+        child.material = new THREE.MeshBasicMaterial({ map: random });
       } else if (child.name.includes("Photo_2")) {
-        child.material = new THREE.MeshBasicMaterial({ map: imageTextureDeux });
+        child.material = new THREE.MeshBasicMaterial({ map: random });
       } else if (child.name.includes("Tableau")) {
         child.material = new THREE.MeshBasicMaterial({
-          map: imageTextureTrois,
+          map: logo,
         });
       } else {
         const shaderMat = createRoomShaderMaterial();
@@ -646,21 +643,25 @@ varying vec2 vUv;
 uniform vec3 uSeaColor;
 
 void main() {
-  // Couleur de base (bleu cartoon)
+  // Couleur de base
   vec3 baseColor = uSeaColor;
 
-  // Forme de reflet plus courbe et fluide
-  float wavePattern = sin(vUv.x * 18.0 + uTime * 1.5) 
-                    + cos(vUv.y * 10.0 + uTime * 1.0);
+  // Génération de vaguelettes
+  float wave1 = sin((vUv.x + uTime * 0.01) * 50.0) * 0.1;
+  float wave2 = sin((vUv.x * 1.5 + uTime * 0.015) * 70.0) * 0.05;
+  float wave3 = sin((vUv.y * 2.0 + uTime * 0.025) * 60.0) * 0.05;
 
-  // Normaliser entre 0 et 1
-  float highlight = smoothstep(0.8, 1.0, wavePattern * 0.5 + 0.5);
+  float waves = wave1 + wave2 + wave3;
 
-  // Mélange
-  vec3 finalColor = mix(baseColor, vec3(1.0), highlight * 0.2); // Intensité légère
+  // Renforcer le contraste des vaguelettes
+  float highlight = smoothstep(0.02, 0.05, abs(waves));
+
+  // Mélange couleur + reflet léger
+  vec3 finalColor = mix(baseColor, vec3(1.0), highlight * 0.2);
 
   gl_FragColor = vec4(finalColor, 1.0);
 }
+
 
 `;
 
@@ -714,6 +715,7 @@ const render = () => {
 
   window.requestAnimationFrame(render);
   uniforms.uTime.value = clock.getElapsedTime();
+  skyDome.rotation.y += 0.0002;
 };
 
 render();
