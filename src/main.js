@@ -12,6 +12,7 @@ const manager = new THREE.LoadingManager();
 
 const loadingScreen = document.querySelector(".loading-screen");
 const loadingScreenButton = document.querySelector(".loading-screen-button");
+let touchHappened = false;
 
 manager.onLoad = function () {
   loadingScreenButton.style.border = "8px solid #3a678c";
@@ -144,8 +145,29 @@ controls.mouseButtons.RIGHT = THREE.MOUSE.NONE;
 controls.update();
 
 //Set starting camera position
-camera.position.set(-6.7944584352431825, 4.92499568607208, 11.882923921243053);
-controls.target.set(1.4169133412459325, 1.8438733598036514, 0.7528969205635033);
+if (window.innerWidth < 768) {
+  camera.position.set(
+    -15.967413641505063,
+    8.366929366970151,
+    24.31632017959284
+  );
+  controls.target.set(
+    1.4169133412459323,
+    1.8438733598036514,
+    0.7528969205635033
+  );
+} else {
+  camera.position.set(
+    -6.7944584352431825,
+    4.92499568607208,
+    11.882923921243053
+  );
+  controls.target.set(
+    1.4169133412459325,
+    1.8438733598036514,
+    0.7528969205635033
+  );
+}
 
 // Event Listeners pour la taille de l'écran
 window.addEventListener("resize", () => {
@@ -172,7 +194,6 @@ const modals = {
 };
 
 let isModalOpen = false;
-let touchHappened = false;
 
 const showModal = (modal) => {
   modal.style.display = "block";
@@ -207,7 +228,6 @@ document.querySelectorAll(".modal-exit-button").forEach((button) => {
   function handleModalExit(e) {
     e.preventDefault();
     const modal = e.target.closest(".modal");
-
     gsap.to(button, {
       scale: 5,
       duration: 0.5,
@@ -229,16 +249,34 @@ document.querySelectorAll(".modal-exit-button").forEach((button) => {
     buttonSounds.click.play();
     hideModal(modal);
   }
-  button.addEventListener("click", handleModalExit);
+
+  button.addEventListener(
+    "touchend",
+    (e) => {
+      // touchHappened = true;
+      handleModalExit(e);
+    },
+    { passive: false }
+  );
+
+  button.addEventListener(
+    "click",
+    (e) => {
+      if (touchHappened) return;
+      handleModalExit(e);
+    },
+    { passive: false }
+  );
 });
 
 /** ----------------- Raycasting --------------------- */
 const raycasterObjects = [];
 let currentsRaycasterObjects = [];
 const Links = {
-  Logo_insta_raycaster: "https://www.instagram.com/florent_rve/",
-  Logo_linkedin_raycaster: "https://www.linkedin.com/in/florent-rve/",
-  Logo_Github_raycaster: "https://github.com/Florent-RVE/",
+  Logo_insta_raycaster: "https://www.instagram.com/florent.rve/",
+  Logo_linkedin_raycaster:
+    "https://www.linkedin.com/in/florent-rivi%C3%A8re-52b044153/",
+  Logo_Github_raycaster: "https://github.com/FlorentRVE?tab=repositories",
 };
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
@@ -256,21 +294,15 @@ const gltfLoader = new GLTFLoader(manager);
 gltfLoader.setDRACOLoader(dracoLoader);
 
 // General Texture
-const textureDay = textureLoader.load(
-  "/textures/Day.webp",
-  (texture) => {
-    texture.flipY = false;
-    texture.colorSpace = THREE.SRGBColorSpace;
-  }
-);
+const textureDay = textureLoader.load("/textures/Day.webp", (texture) => {
+  texture.flipY = false;
+  texture.colorSpace = THREE.SRGBColorSpace;
+});
 
-const textureNight = textureLoader.load(
-  "/textures/Night.webp",
-  (texture) => {
-    texture.flipY = false;
-    texture.colorSpace = THREE.SRGBColorSpace;
-  }
-);
+const textureNight = textureLoader.load("/textures/Night.webp", (texture) => {
+  texture.flipY = false;
+  texture.colorSpace = THREE.SRGBColorSpace;
+});
 
 const createRoomShaderMaterial = () => {
   return new THREE.ShaderMaterial({
@@ -315,35 +347,24 @@ videoTexture.center.set(0.8, 0);
 videoTexture.rotation = Math.PI / 2;
 
 // Image Texture
-const poster = new THREE.TextureLoader().load(
-  "textures/image/poster.webp"
-);
+const poster = new THREE.TextureLoader().load("textures/image/poster.webp");
 poster.wrapS = THREE.RepeatWrapping;
 poster.wrapT = THREE.RepeatWrapping;
 poster.repeat.set(-20, 20);
 poster.center.set(0.3, 0.8);
 
-const random = new THREE.TextureLoader().load(
-  "textures/image/random.webp"
-);
+const random = new THREE.TextureLoader().load("textures/image/random.webp");
 random.wrapS = THREE.RepeatWrapping;
 random.wrapT = THREE.RepeatWrapping;
 random.repeat.set(50, 50);
 
-const logo = new THREE.TextureLoader().load(
-  "textures/image/logo.webp"
-);
+const logo = new THREE.TextureLoader().load("textures/image/logo.webp");
 logo.wrapS = THREE.RepeatWrapping;
 logo.wrapT = THREE.RepeatWrapping;
 logo.repeat.set(-40, 35.6);
 logo.center.set(0.5, 0.1);
 
 /** ------------------------------- Mouse & Click --------------------------*/
-window.addEventListener("mousemove", (e) => {
-  pointer.x = (e.clientX / sizes.width) * 2 - 1;
-  pointer.y = -(e.clientY / sizes.height) * 2 + 1;
-});
-
 function handleRaycasterInteraction() {
   if (!isModalOpen) {
     if (currentsRaycasterObjects.length) {
@@ -360,13 +381,15 @@ function handleRaycasterInteraction() {
   }
 }
 
-window.addEventListener("click", handleRaycasterInteraction);
+window.addEventListener("mousemove", (e) => {
+  touchHappened = false;
+  pointer.x = (e.clientX / sizes.width) * 2 - 1;
+  pointer.y = -(e.clientY / sizes.height) * 2 + 1;
+});
 
 window.addEventListener(
   "touchstart",
   (e) => {
-    if (isModalOpen) return;
-    e.preventDefault();
     pointer.x = (e.touches[0].clientX / sizes.width) * 2 - 1;
     pointer.y = -(e.touches[0].clientY / sizes.height) * 2 + 1;
   },
@@ -376,12 +399,14 @@ window.addEventListener(
 window.addEventListener(
   "touchend",
   (e) => {
-    if (isModalOpen) return;
     e.preventDefault();
     handleRaycasterInteraction();
+    touchHappened = true;
   },
   { passive: false }
 );
+
+window.addEventListener("click", handleRaycasterInteraction);
 
 /** ------------------------------- Mute --------------------------*/
 const muteToggleButton = document.querySelector(".mute-toggle-button");
@@ -534,7 +559,6 @@ const handleThemeToggle = (e) => {
     });
   }
 
-
   //Switch la texture ici
   Object.values(roomMaterials).forEach((material) => {
     gsap.to(material.uniforms.uMixRatio, {
@@ -618,7 +642,6 @@ for (let i = 0; i < geometry.attributes.position.count; i++) {
 // Mettre à jour la géométrie
 geometry.computeVertexNormals();
 geometry.attributes.position.needsUpdate = true;
-
 
 // Uniforms
 const uniforms = {
