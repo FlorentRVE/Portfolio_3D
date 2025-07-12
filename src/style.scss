@@ -7,7 +7,7 @@ $themes: (
     base-dark-blue: #3a678c,
     base-blue: #64b9e5,
     base-blue-200: #a3dff1,
-    base-pink: #f2e3d2,
+    base-wood: #f2e3d2,
     base-light-blue: #dceaf4,
     header-text: #3a678c,
     text: #020202,
@@ -17,7 +17,7 @@ $themes: (
     base-dark-blue: #dceaf4,
     base-blue: #3a678c,
     base-blue-200: #5c7ea5,
-    base-pink: #3a2f28,
+    base-wood: #3a2f28,
     base-light-blue: #2b4a60,
     header-text: #dceaf4,
     text: #dceaf4,
@@ -87,6 +87,10 @@ $themes: (
 h1,
 h2 {
   font-family: vars.$base-font-2;
+}
+h3 {
+  font-weight: bold;
+  text-decoration: none;
 }
 
 p,
@@ -191,7 +195,8 @@ ul {
 .modal-paragraph-header {
   font-size: 1.5rem;
   margin-top: 24px;
-  margin-bottom: 8px;
+  margin-bottom: 24px;
+  text-align: center;
   @include media.media("<=tablet") {
     font-size: 1.3rem;
   }
@@ -241,21 +246,21 @@ ul {
 }
 
 .Panneau_portfolio_raycaster .modal-content {
-  height: 550px;
+  height: 60vh;
 
   @include media.media("<=tablet") {
     height: 500px;
   }
 }
 
-.about .modal-content {
-  height: 550px;
+.Panneau_apropos_raycaster .modal-content {
+  height: 60vh;
   @include media.media("<=tablet") {
     height: 500px;
   }
 }
 
-.contact .modal-content {
+.Panneau_contact_raycaster .modal-content {
   height: 170px;
   overflow: visible;
 
@@ -542,6 +547,11 @@ ul {
 .work-base-image {
   @include themed() {
     border-color: t("base-blue");
+    height: auto;
+    width: 30%;
+    @include media.media("<=tablet") {
+      width: 100%;
+    }
   }
 }
 
@@ -592,6 +602,57 @@ ul {
 .modal-paragraph-text {
   @include themed() {
     color: t("text");
+  }
+}
+
+.modal-projects-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  .modal-project {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    border: vars.$base-blue 5px solid;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    padding: 5px;
+    @include media.media("<=tablet") {
+      flex-direction: column;
+    }
+    .modal-project-image {
+      height: auto;
+      width: 25%;
+    }
+    .modal-project-description {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      gap: 20px;
+      padding: 10px;
+
+      .modal-project-title {
+        font-family: vars.$base-font-2;
+        color: vars.$base-dark-blue;
+        @include media.media("<=tablet") {
+          font-size: 1.5rem;
+        }
+      }
+      .modal-project-description {
+        font-family: vars.$base-font;
+        font-size: 1rem;
+      }
+    }
+    .modal-project-link {
+      width: 5%;
+      @include media.media("<=tablet") {
+        width: 8%;
+      }
+      .modal-project-link-image {
+        height: auto;
+        width: 100%;
+      }
+    }
   }
 }
 

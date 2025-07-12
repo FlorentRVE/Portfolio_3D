@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -21,19 +21,17 @@
       property="og:description"
       content="Bonjour sur mon site de présentation! Je suis Rivière Florent."
     />
-
   </head>
   <body class="light-theme">
-
     <div class="loading-screen">
       <button class="loading-screen-button">
         Chargement...
       </button>
 
-      <p class="desktop-instructions instructions">Utilisez le click gauche de la souris pour naviguer!</p>
-      <p class="mobile-instructions instructions">Utilisez deux doigts pour naviguer!</p>
+      <p class="desktop-instructions instructions">Utilisez le click gauche de la souris pour naviguer et cliquez sur les panneaux !</p>
+      <p class="mobile-instructions instructions">Utilisez deux doigts pour naviguer et cliquez sur les panneaux !</p>
     </div>
-    
+
     <div class="overlay"></div>
 
     <button class="mute-toggle-button toggle-buttons">
@@ -95,14 +93,47 @@
     </button>
 
     <button class="theme-toggle-button toggle-buttons">
-      <svg class="sun-svg" width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M733.333 550H66.666M666.666 666.667H133.333M399.999 100V166.667M133.333 433.333H66.666M210.47 243.804L163.329 196.663M589.516 243.804L636.659 196.663M733.333 433.333H666.666M233.333 433.333C233.333 341.287 307.952 266.667 399.999 266.667C492.046 266.667 566.666 341.287 566.666 433.333"  stroke-width="85" stroke-linecap="round" stroke-linejoin="round"/>
+      <svg
+        class="sun-svg"
+        width="800"
+        height="800"
+        viewBox="0 0 800 800"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M733.333 550H66.666M666.666 666.667H133.333M399.999 100V166.667M133.333 433.333H66.666M210.47 243.804L163.329 196.663M589.516 243.804L636.659 196.663M733.333 433.333H666.666M233.333 433.333C233.333 341.287 307.952 266.667 399.999 266.667C492.046 266.667 566.666 341.287 566.666 433.333"
+          stroke-width="85"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
       </svg>
-      <svg class="moon-svg" width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M446.619 254.869C449.832 245.908 462.666 245.908 465.879 254.869L474.669 279.371C475.699 282.239 477.983 284.495 480.886 285.511L505.696 294.193C514.766 297.368 514.766 310.04 505.696 313.215L480.886 321.897C477.983 322.913 475.699 325.169 474.669 328.038L465.879 352.54C462.666 361.5 449.832 361.5 446.619 352.54L437.829 328.038C436.799 325.169 434.516 322.913 431.612 321.897L406.803 313.215C397.733 310.04 397.733 297.368 406.803 294.193L431.612 285.511C434.516 284.495 436.799 282.239 437.829 279.371L446.619 254.869Z" fill="currentColor"/>
-        <path d="M543.581 363.74C545.724 357.766 554.278 357.766 556.421 363.74L562.281 380.073C562.968 381.986 564.491 383.49 566.427 384.166L582.964 389.956C589.014 392.073 589.014 400.52 582.964 402.636L566.427 408.423C564.491 409.103 562.968 410.606 562.281 412.52L556.421 428.853C554.278 434.826 545.724 434.826 543.581 428.853L537.721 412.52C537.034 410.606 535.511 409.103 533.574 408.423L517.037 402.636C510.987 400.52 510.987 392.073 517.037 389.956L533.574 384.166C535.511 383.49 537.034 381.986 537.721 380.073L543.581 363.74Z" fill="currentColor"/>
-        <path d="M592.31 109.728C596.963 96.7573 615.537 96.7573 620.19 109.728L636.14 154.184C637.627 158.335 640.937 161.602 645.14 163.073L690.15 178.825C703.283 183.421 703.283 201.764 690.15 206.36L645.14 222.112C640.937 223.583 637.627 226.85 636.14 231.002L620.19 275.457C615.537 288.428 596.963 288.428 592.31 275.457L576.36 231.002C574.873 226.85 571.563 223.583 567.36 222.112L522.35 206.36C509.217 201.764 509.217 183.421 522.35 178.825L567.36 163.073C571.563 161.602 574.873 158.335 576.36 154.184L592.31 109.728Z" fill="currentColor"/>
-        <path d="M100 448.657C100 587.47 215.807 700 358.66 700C468.637 700 562.58 633.31 600 539.277C570.363 552.803 537.27 560.363 502.363 560.363C375.38 560.363 272.441 460.337 272.441 336.947C272.441 285.342 290.446 237.824 320.685 200C195.834 217.85 100 322.377 100 448.657Z"  stroke-width="85" stroke-linecap="round" stroke-linejoin="round"/>
+      <svg
+        class="moon-svg"
+        width="800"
+        height="800"
+        viewBox="0 0 800 800"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M446.619 254.869C449.832 245.908 462.666 245.908 465.879 254.869L474.669 279.371C475.699 282.239 477.983 284.495 480.886 285.511L505.696 294.193C514.766 297.368 514.766 310.04 505.696 313.215L480.886 321.897C477.983 322.913 475.699 325.169 474.669 328.038L465.879 352.54C462.666 361.5 449.832 361.5 446.619 352.54L437.829 328.038C436.799 325.169 434.516 322.913 431.612 321.897L406.803 313.215C397.733 310.04 397.733 297.368 406.803 294.193L431.612 285.511C434.516 284.495 436.799 282.239 437.829 279.371L446.619 254.869Z"
+          fill="currentColor"
+        />
+        <path
+          d="M543.581 363.74C545.724 357.766 554.278 357.766 556.421 363.74L562.281 380.073C562.968 381.986 564.491 383.49 566.427 384.166L582.964 389.956C589.014 392.073 589.014 400.52 582.964 402.636L566.427 408.423C564.491 409.103 562.968 410.606 562.281 412.52L556.421 428.853C554.278 434.826 545.724 434.826 543.581 428.853L537.721 412.52C537.034 410.606 535.511 409.103 533.574 408.423L517.037 402.636C510.987 400.52 510.987 392.073 517.037 389.956L533.574 384.166C535.511 383.49 537.034 381.986 537.721 380.073L543.581 363.74Z"
+          fill="currentColor"
+        />
+        <path
+          d="M592.31 109.728C596.963 96.7573 615.537 96.7573 620.19 109.728L636.14 154.184C637.627 158.335 640.937 161.602 645.14 163.073L690.15 178.825C703.283 183.421 703.283 201.764 690.15 206.36L645.14 222.112C640.937 223.583 637.627 226.85 636.14 231.002L620.19 275.457C615.537 288.428 596.963 288.428 592.31 275.457L576.36 231.002C574.873 226.85 571.563 223.583 567.36 222.112L522.35 206.36C509.217 201.764 509.217 183.421 522.35 178.825L567.36 163.073C571.563 161.602 574.873 158.335 576.36 154.184L592.31 109.728Z"
+          fill="currentColor"
+        />
+        <path
+          d="M100 448.657C100 587.47 215.807 700 358.66 700C468.637 700 562.58 633.31 600 539.277C570.363 552.803 537.27 560.363 502.363 560.363C375.38 560.363 272.441 460.337 272.441 336.947C272.441 285.342 290.446 237.824 320.685 200C195.834 217.85 100 322.377 100 448.657Z"
+          stroke-width="85"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
       </svg>
     </button>
 
@@ -114,94 +145,92 @@
           <div class="modal-content-wrapper">
             <div class="work-project">
               <div class="work-project-wrapper">
-                <div class="work-image-wrapper">
-                  <img
-                    class="work-base-image"
-                    src="/images/community.webp"
-                    alt=""
-                    srcset=""
-                  />
-                </div>
-                <div class="paragraph-section">
-                  <h2 class="modal-paragraph-header">Community Leader</h2>
-                  <p class="modal-paragraph-text">
-                    Organized several events and outreach with local communities
-                    and business to help international students familiarize with
-                    Korean culture!
-                  </p>
-                  <p class="modal-paragraph-text sm-margin-top sm-font">
-                    Skills: Leadership, Communication, Community Building, Teamwork
-                  </div>
-                  </p>
-              </div>
-            </div>
-            <div class="work-project">
-              <div class="work-project-wrapper">
-                <div class="work-image-wrapper">
-                  <img
-                    class="work-base-image"
-                    src="/images/computer.webp"
-                    alt=""
-                    srcset=""
-                  />
-                </div>
-                <div class="paragraph-section">
-                  <h2 class="modal-paragraph-header">MeloMochi</h2>
-                  <p class="modal-paragraph-text">
-                    During my piano teaching journey, I created MeloMochi, an AI-powered compositional tool that helps students learn music theory through hands-on exploration. I designed the system to generate piano exercises and short pieces that adapt to each student's skill level, combining my experience as a pianist with my machine learning expertise. Using TensorFlow and pretty_midi, I trained models on classical repertoire to create exercises that feel musical while targeting specific technical challenges. The web interface I built with React allows students to interact with the generated pieces, visualize patterns, and even modify them in real-time. Working closely with my students throughout development helped me refine the system to ensure it genuinely supports their learning process, making music theory more engaging and practical.
-                  </p>
-                  <p class="modal-paragraph-text sm-margin-top sm-font">
-                    Skills: Music Generation,
-                    TensorFlow,
-                    pretty_midi,
-                    Adaptive Learning,
-                    React,
-                    Music Theory,
-                    UX Design,
-                    Generative ML,
-                    Education Tech,
-                    Web Audio API
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="work-project">
-              <div class="work-project-wrapper">
-                <div class="work-image-wrapper">
-                  <img
-                    class="work-base-image"
-                    src="/images/piano.webp"
-                    alt=""
-                    srcset=""
-                  />
-                </div>
                 <div class="paragraph-section">
                   <h2 class="modal-paragraph-header">
-                    PianoScope
+                    Retrouvez ici mes créations
                   </h2>
-                  <p class="modal-paragraph-text">
-                    PianoScope is my passion project that combines my love for
-                    piano and machine learning. I co-created this AI-powered
-                    tool with fellow musicians to help us better understand our
-                    playing patterns. Using deep learning and audio processing
-                    techniques I implemented in Python and TensorFlow, the
-                    system analyzes recordings to detect nuances in timing,
-                    dynamics, and pedaling. I built the interactive
-                    visualization interface using React, allowing
-                    performers to see how these elements evolve.
-                  </p>
-                  <p class="modal-paragraph-text sm-margin-top sm-font">
-                    Skills: Audio Processing,
-                    Signal Analysis,
-                    Machine Learning,
-                    Data Visualization,
-                    TensorFlow,
-                    React,
-                    Python,
-                    DSP (Digital Signal Processing),
-                    Performance Analytics,
-                    Audio Classification
-                  </p>
+                  <div class="modal-projects-wrapper">
+                    <!-- Projet ici -->
+                    <div class="modal-project">
+                      <img
+                        class="modal-project-image"
+                        src="/images/placeholder.png"
+                        alt="Aperçu du projet Un"
+                      />
+                      <div class="modal-project-description">
+                        <h3 class="modal-project-title">Site Web 3D</h3>
+                        <p class="modal-project-description">
+                          Ce site web avec Blender et Threejs fefgergrg rfgerfef
+                          ef ef efe
+                        </p>
+                      </div>
+                      <a
+                        href="https://github.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Voir le projet Un sur GitHub"
+                        class="modal-project-link"
+                        ><img
+                          class="modal-project-link-image"
+                          src="/images/arrow.svg"
+                          alt="Lien vers le projet Un"
+                        />
+                      </a>
+                    </div>
+                    <div class="modal-project">
+                      <img
+                        class="modal-project-image"
+                        src="/images/placeholder.png"
+                        alt="Aperçu du projet Un"
+                      />
+                      <div class="modal-project-description">
+                        <h3 class="modal-project-title">Site Web 3D</h3>
+                        <p class="modal-project-description">
+                          Ce site web avec Blender et Threejs fefgergrg rfgerfef
+                          ef ef efe
+                        </p>
+                      </div>
+                      <a
+                        href="https://github.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Voir le projet Un sur GitHub"
+                        class="modal-project-link"
+                        ><img
+                          class="modal-project-link-image"
+                          src="/images/arrow.svg"
+                          alt="Lien vers le projet Un"
+                        />
+                      </a>
+                    </div>
+                    <div class="modal-project">
+                      <img
+                        class="modal-project-image"
+                        src="/images/placeholder.png"
+                        alt="Aperçu du projet Un"
+                      />
+                      <div class="modal-project-description">
+                        <h3 class="modal-project-title">Site Web 3D</h3>
+                        <p class="modal-project-description">
+                          Ce site web avec Blender et Threejs fefgergrg rfgerfef
+                          ef ef efe
+                        </p>
+                      </div>
+                      <a
+                        href="https://github.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Voir le projet Un sur GitHub"
+                        class="modal-project-link"
+                        ><img
+                          class="modal-project-link-image"
+                          src="/images/arrow.svg"
+                          alt="Lien vers le projet Un"
+                        />
+                      </a>
+                    </div>
+                    <!-- Fin projet -->
+                  </div>
                 </div>
               </div>
             </div>
@@ -237,7 +266,7 @@
 
     <div class="Panneau_apropos_raycaster modal">
       <div class="modal-wrapper">
-        <h1 class="modal-title">~ About Me ~</h1>
+        <h1 class="modal-title">~ A propos ~</h1>
 
         <div class="modal-content">
           <div class="modal-content-wrapper">
@@ -245,56 +274,55 @@
               <div class="image-wrapper">
                 <img
                   class="base-image"
-                  src="/images/profile_pic.webp"
+                  src="/textures/image/poster.webp"
                   alt=""
                   srcset=""
                 />
               </div>
               <h2 class="modal-paragraph-header">
-                Engineer, musician, creative, & gamer at heart 💜
+                Community Manager en devenir
               </h2>
               <p class="modal-paragraph-text">
-                안녕하세요, I'm 김수아 (Kim Soo-ah), but you can also call me
-                Angelina! I'm currently a second-year student at Seoul National
-                University studying computer science engineering and music. I
-                love to take my combination of skills of technical and artsy
-                skills to create beautiful things for the world that I am
-                passionate about.
+                Bonjour à tous ! Je suis Rivière Florent, j'aime apprendre et surtout apprendre à créer de nouvelles
+                choses avec mon ordinateur ! 😊✌️
               </p>
               <p class="modal-paragraph-text sm-margin-top">
-                In my free time you'll definitely catch me watching K-drama and
-                League of Legends. I also practice piano one or two hours a day
-                and want to start uploading content one day. May or may not also
-                catch me going for strolls around my neighbohrhood.
+                Mon temps libre est principalement consacré à apprendre de
+                nouvelles compétences en 3D (Blender), Vidéo/Motion Design
+                (After Effects) ou encore graphisme (Photoshop). 🎨
               </p>
-              <h2 class="modal-paragraph-header">What I'm Up To:</h2>
+              <p class="modal-paragraph-text sm-margin-top">
+                J'ai aussi un attrait pour la culture internet et le monde du jeu vidéo. 🎮
+              </p>
+              <h2 class="modal-paragraph-header">Mes compétences:</h2>
               <ul>
+                <li class="list-text">Créatif et polyvalent, je conçois visuels et formats interactifs percutants (stories, vidéos courtes, sondages) pour animer et fidéliser une communauté.</li>
                 <li class="list-text">
-                  I volunteer at the SNU international students association
-                  helping international students with korean speaking and
-                  overall getting to know Korea a little bit better.
+                  Orienté sur les données, j’analyse rigoureusement les indicateurs clés (engagement, reach, conversions) et j’ajuste en continu la stratégie pour maximiser l’impact des campagnes.
                 </li>
                 <li class="list-text">
-                  I'm also looking for summer internships related to software
-                  design for music information retriveal, developing ai
-                  algorithms to automatically generate sheet music from audio.
-                </li>
-                <li class="list-text">
-                  Course work is a bit intense! You'll find me in the quiet
-                  rooms studio doing work. I also spend a few hours each week as
-                  a lab assistant researching.
+                  Je peux aussi m'occuper de site web, que ce soit du CMS ou du plus poussée en développement. J'ai des compétences en Symfony et React.
                 </li>
               </ul>
-              <h2 class="modal-paragraph-header-2">Portfolio credits and Inspiration:</h2>
+              <h2 class="modal-paragraph-header-2">
+                Portfolio credits & Inspiration:
+              </h2>
               <ul>
                 <li class="list-text-2">
-                  Music is called Cosmic Star Candy by Daystar Project!
+                  La musique de fond est une version
+                  <a
+                    href="https://www.youtube.com/watch?v=oSxTqeY43QE&list=RDoSxTqeY43QE&start_radio=1&pp=ygUlZmluYWwgZmFudGFzeSBjcnlzdGFsIGNocm9uaWNsZXMgbG9maaAHAQ%3D%3D"
+                    >Lofi d'une OST Final Fantasy Crystal Chronicles</a
+                  >
                 </li>
                 <li class="list-text-2">
-                  This portfolio was inspired by Bruno Simon's and Rachel Wei's Room Portfolios as well as Denis Wipart's and Nicky Blender's art!
-                </li>
-                <li class="list-text-2">
-                  Also the piano in this portfolio works!! Give it a try and play a song!
+                  Ce portfolio a été réalisé en suivant la vidéo Youtube d'<a
+                    href="https://www.youtube.com/watch?v=AB6sulUMRGE"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    decoration="none"
+                    >Andrew Woan</a
+                  >. N'hésitez pas à y jeter un oeil !
                 </li>
               </ul>
             </div>
@@ -330,13 +358,13 @@
 
     <div class="Panneau_contact_raycaster modal">
       <div class="modal-wrapper">
-        <h1 class="modal-title">~ Say hello! ~</h1>
+        <h1 class="modal-title">~ Venez dire Bonjour! ~</h1>
 
         <div class="modal-content">
           <div class="modal-content-wrapper">
             <div class="paragraph-section">
               <h2 class="modal-paragraph-header xsm-margin-top">
-                If you like engineering, music, games, and food, let's connect!
+                Si mon profil vous interesse, n'hesitez pas à me contacter !
               </h2>
               <div class="contact-button-wrapper">
                 <a
@@ -345,8 +373,21 @@
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                <svg class="contact-svg mail" width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M656.85 209.817C608.726 166.348 527.66 150 400 150C272.34 150 191.272 166.348 143.15 209.817M656.85 209.817C700.01 248.804 716.666 309.608 716.666 400C716.666 591.177 642.156 650 400 650C157.843 650 83.333 591.177 83.333 400C83.333 309.608 99.9903 248.804 143.15 209.817M656.85 209.817L447.14 419.527C421.103 445.56 378.893 445.56 352.86 419.527L143.15 209.817" stroke="currentColor" stroke-width="66.7" stroke-linecap="round" stroke-linejoin="round"/>
+                  <svg
+                    class="contact-svg mail"
+                    width="800"
+                    height="800"
+                    viewBox="0 0 800 800"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M656.85 209.817C608.726 166.348 527.66 150 400 150C272.34 150 191.272 166.348 143.15 209.817M656.85 209.817C700.01 248.804 716.666 309.608 716.666 400C716.666 591.177 642.156 650 400 650C157.843 650 83.333 591.177 83.333 400C83.333 309.608 99.9903 248.804 143.15 209.817M656.85 209.817L447.14 419.527C421.103 445.56 378.893 445.56 352.86 419.527L143.15 209.817"
+                      stroke="currentColor"
+                      stroke-width="66.7"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
                   </svg>
                 </a>
                 <a
@@ -410,11 +451,29 @@
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                <svg class="contact-svg instagram" width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M400 675C341.033 675 298.6 674.971 265.517 671.763C232.812 668.592 211.892 662.5 195.196 652.008C176.114 640.02 159.978 623.885 147.987 604.804C137.5 588.108 131.404 567.187 128.238 534.483C125.029 501.4 125 458.967 125 400C125 341.033 125.029 298.6 128.238 265.517C131.404 232.812 137.5 211.892 147.987 195.196C159.977 176.113 176.113 159.977 195.196 147.987C211.892 137.5 232.812 131.404 265.517 128.238C298.596 125.029 341.029 125 400 125C458.967 125 501.4 125.029 534.483 128.238C567.187 131.404 588.108 137.5 604.804 147.987C623.885 159.978 640.02 176.114 652.008 195.196C662.5 211.892 668.592 232.812 671.763 265.517C674.971 298.6 675 341.033 675 400C675 458.967 674.971 501.4 671.763 534.483C668.592 567.187 662.5 588.108 652.008 604.804C640.019 623.885 623.885 640.019 604.804 652.008C588.108 662.5 567.187 668.592 534.483 671.763C501.4 674.971 458.967 675 400 675Z" stroke="currentColor" stroke-width="66.7"/>
-                  <path d="M400 525C469.036 525 525 469.036 525 400C525 330.964 469.036 275 400 275C330.964 275 275 330.964 275 400C275 469.036 330.964 525 400 525Z" stroke="currentColor" stroke-width="66.7"/>
-                  <path d="M562.5 275C583.211 275 600 258.211 600 237.5C600 216.789 583.211 200 562.5 200C541.789 200 525 216.789 525 237.5C525 258.211 541.789 275 562.5 275Z" fill="currentColor"/>
-                </svg>
+                  <svg
+                    class="contact-svg instagram"
+                    width="800"
+                    height="800"
+                    viewBox="0 0 800 800"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M400 675C341.033 675 298.6 674.971 265.517 671.763C232.812 668.592 211.892 662.5 195.196 652.008C176.114 640.02 159.978 623.885 147.987 604.804C137.5 588.108 131.404 567.187 128.238 534.483C125.029 501.4 125 458.967 125 400C125 341.033 125.029 298.6 128.238 265.517C131.404 232.812 137.5 211.892 147.987 195.196C159.977 176.113 176.113 159.977 195.196 147.987C211.892 137.5 232.812 131.404 265.517 128.238C298.596 125.029 341.029 125 400 125C458.967 125 501.4 125.029 534.483 128.238C567.187 131.404 588.108 137.5 604.804 147.987C623.885 159.978 640.02 176.114 652.008 195.196C662.5 211.892 668.592 232.812 671.763 265.517C674.971 298.6 675 341.033 675 400C675 458.967 674.971 501.4 671.763 534.483C668.592 567.187 662.5 588.108 652.008 604.804C640.019 623.885 623.885 640.019 604.804 652.008C588.108 662.5 567.187 668.592 534.483 671.763C501.4 674.971 458.967 675 400 675Z"
+                      stroke="currentColor"
+                      stroke-width="66.7"
+                    />
+                    <path
+                      d="M400 525C469.036 525 525 469.036 525 400C525 330.964 469.036 275 400 275C330.964 275 275 330.964 275 400C275 469.036 330.964 525 400 525Z"
+                      stroke="currentColor"
+                      stroke-width="66.7"
+                    />
+                    <path
+                      d="M562.5 275C583.211 275 600 258.211 600 237.5C600 216.789 583.211 200 562.5 200C541.789 200 525 216.789 525 237.5C525 258.211 541.789 275 562.5 275Z"
+                      fill="currentColor"
+                    />
+                  </svg>
                 </a>
               </div>
             </div>

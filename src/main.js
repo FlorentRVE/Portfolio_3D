@@ -19,7 +19,7 @@ manager.onLoad = function () {
   loadingScreenButton.style.background = "#64b9e5";
   loadingScreenButton.style.color = "#e6dede";
   loadingScreenButton.style.boxShadow = "rgba(0, 0, 0, 0.24) 0px 3px 8px";
-  loadingScreenButton.textContent = "Enter!";
+  loadingScreenButton.textContent = "C'est parti !";
   loadingScreenButton.style.cursor = "pointer";
   loadingScreenButton.style.transition =
     "transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)";
